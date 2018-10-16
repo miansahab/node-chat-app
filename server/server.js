@@ -12,7 +12,17 @@ var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
-io.on('connection', (socket) => {
+  io.on('connection', (socket) => {
+
+  socket.emit('newMessage', {
+    from: 'msa413@gmail.com',
+    text: 'what is going on?',
+    createAt: 123
+  });
+
+  socket.on('createMessage', (message) => {
+    console.log('createMessage', message);
+  });
 
   socket.on('disconnect', () => {
     console.log('User was disconnected');
